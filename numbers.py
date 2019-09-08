@@ -13,3 +13,11 @@ for number in range(10, 100):
         square = sum_int**2
         print(number,)
 
+num = 0 
+for pos_num in range(100,0, -1):
+    count_div = 0
+    for num in range(1, pos_num+1):
+        if pos_num % num == 0:
+            count_div += 1
+            if count_div == 10:
+                print(pos_num)
