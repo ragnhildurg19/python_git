@@ -18,21 +18,24 @@
 # Það þarf varla að taka það fram að læsileiki forritsins er mjög mikilvægur.
 
 import string
+import random
+
 #Fáum inn skrá frá notanda.
 input_file = str(input("Enter name of file: "))
 open_file = open(input_file, "r")
 
-#Þessi breyta á að gera eitthvað voðalega sniðugt.. en gerir það bara ekki. 
+#Þessi breyta á að gera eitthvað voðalega sniðugt.. en gerir það bara ekki.
 #hún á að halda fyrsta og seinasta staf hvers orðs og ætti að geta eitthvað við middle_words.
 def scramble(word):
     middle_words = word[1:-1]
-    
-    return word[0] + middle_words + word[-1]
-#fyrir hverja línu í skjalinu á forritið að rugla orðum. 
+    middle_scrambled = ''.join(random.sample(middle_words, len(middle_words)))
+    return word[0] + middle_scrambled + word[-1]
+
+#fyrir hverja línu í skjalinu á forritið að rugla orðum.
 for word in open_file:
         words = word.split()
         for word in words:
-            scrambled_word=scramble(word)
-        print(scrambled_word, end=" ")
+            scrambled_word=scramble(word) + '\n'
+        print(scrambled_word,end=" ")
 
 open_file.close()
