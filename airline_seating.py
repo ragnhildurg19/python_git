@@ -7,7 +7,7 @@
 # 4
 
 # SEATS = [A,B,C,D,E,F,G,H,I,J]
-
+import math
 def get_number_of_rows():
     ''' returns a number of rows '''
     rows = int(input("Enter number of rows: "))
@@ -28,24 +28,32 @@ def data_list(rows, seats):
     
     return airplane
 
+def BookSeat(book_seat):
+    book_seat = book_seat.split(" ")
+    pass
+
+
 def main():
     rows = get_number_of_rows()
     seats = get_number_of_seats()
     plane = data_list(rows, seats)
-    print(plane)
+    # á eftir að skipta röðinni í tvennt og setja línufjölda fyrir framan
+    print(*plane, sep= "\n") 
+    book_seat = input("Input seat number (row seat): ")
 
 
-    # while True:
-    #     more_seats = input("More seats (y/n)? ")
 
-    #     if more_seats == "y":
-    #         input("Input seat number (row seat): ")
-    #             # ef sæti er tekið
-    #         print("That seat is taken!")
-    #             # ef sæti er ekki til
-    #         print("Seat number is invalid!")
+    while True:
+        more_seats = input("More seats (y/n)? ")
 
-    # else:
-    #     break
+        if more_seats == "y":
+            input("Input seat number (row seat): ")
+                # ef sæti er tekið
+            print("That seat is taken!")
+                # ef sæti er ekki til
+            print("Seat number is invalid!")
+
+        else:
+            break
 
 main()
