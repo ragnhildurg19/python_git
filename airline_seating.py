@@ -1,4 +1,13 @@
-
+# Lýsing á verkefni: 
+#     Í þessu verkefni eigið þið að skrifa Python forrit, airline_seating.py, sem gefur notanda möguleika á að bóka sæti í flugvél.  
+#     Þið megið nota efni úr fyrstu 8 köflunum í kennslubókinni við lausn á verkefninu.
+#     Í upphafi er fjöldi raða og fjöldi sæta í hverri röð í flugvélinni sleginn inn af notanda
+#     Númer raðar er birt í svæði sem er 2 stafir að breidd, síðan koma þrjú bil.  
+#     Eitt bil er á milli sæta en gangur á milli sætanna er sýndur með þremur bilum.  
+#     Gera má ráð fyrir að fjöldi sæta í hverri röð sé slétt tala >= 2 og það á alltaf að vera einungis einn gangur á milli sætanna.
+#     Eftir þetta er notandanum gefinn kostur á að taka sæti frá.  Hann gefur það til kynna með því að slá inn númer raðar og sæti (með bili á milli), t.d.:
+#         Input seat number (row seat): 7 B
+#     og þá prentast yfirlitið aftur, nú með 'X' fyrir valið sæti:
 # 1 Taka inn input frá notanda, rows og seats
 # 2 prenta raðir og sæti með 2ja stafa breidd fyrir númer raða og 3 bil eftir það, 3 bil er gangurinn,
 # og eitt bil á milli sæta
