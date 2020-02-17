@@ -1,1 +1,2 @@
 SF:100;SB:-1;SL:1;P:DRIZZLE
+['SF:100\n', 'SB:-1;SL:1.0\n', 'P:DRIZZLE']
