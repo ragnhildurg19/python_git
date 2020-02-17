@@ -36,7 +36,7 @@ def open_file(filename):
     ''' Opens file and checks if that file exicts '''
     try:
         file_object = open(filename, "r")
-
+        
         return file_object
     except FileNotFoundError:
         print("File '{}' not found!".format(filename))
@@ -53,7 +53,7 @@ def split_line(filename):
         new_line = line.strip().split(";")
 
         for index in new_line:
-            index1, index2 = index.split(":")
+            index1, index2 = index.strip().split(":")
             if index1 == "P" and (index2 == "NONE" or index2 == "MIST" or index2 == "DRIZZLE" or index2 == "RAIN" or index2.isdigit):
                 print_line(index1, index2) # Calling the print line function
             elif index1 == "SF" or index1 == "SB" or index1 == "SL" or index1 == "SR": 
@@ -83,7 +83,7 @@ def last_line(new_line):
     global P
 
     for index in new_line:
-        index1, index2 = index.split(":")
+        index1, index2 = index.strip().split(":")
         
         if index1 == "SF":
             index2 = float(index2)
@@ -133,6 +133,7 @@ def print_last_line():
 
 filename = input("Enter name of file: ")
 file_object = open_file(filename)
+
 if file_object != False:
 
     file_line = read_lint(file_object)
