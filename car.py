@@ -10,7 +10,8 @@
 # Fjarlægðarskynjararnir skrifa gögn á eftirfarandi formi:
 # [Auðkenni]:[Fjarlægð í metrum].
 # Dæmi: SF:100 táknar að að séu 100m í næstu fyrirstöðu fyrir framan.
-# Ef engin fyrirstaða mælist, þá er skrifað -1, t.d. SF:-1.
+# Ef engin fyrirstaða mælist, þá er skrifað -1, t.d. SF:-1. --> Ef mælir sýnir -1 þá á að prentast út "CLEAR ROAD"
+# Ef engar upplýsingar eru mælast hjá skynjara þá á að prenta út "NO DATA"
 
 # Úrkomumælirinn hefur eftirfarandi uppbyggingu skeytis:
 # P:[Magn úrkomu], þar sem magn úrkomu er táknað með NONE, MIST, DRIZZLE, eða RAIN.
@@ -25,6 +26,11 @@
 # Einungis má nota það efni sem búið er að fara yfir í bókinni í lausninni sem er skilað.
 # Hafið í huga yfirferðalyklana sem hafa verið gefnir út á canvas.
 
+SF = "NO DATA"
+SB = "NO DATA"
+SL = "NO DATA"
+SR = "NO DATA"
+P = "NO DATA"
 
 def open_file(filename):
     ''' Opens file and checks if that file exicts '''
@@ -35,7 +41,6 @@ def open_file(filename):
     except FileNotFoundError:
         print("File '{}' not found!".format(filename))
         return False
-
 
 def read_lint(filename):
     '''Reads each line of the object '''
@@ -59,7 +64,7 @@ def split_line(filename):
             else:
                 print_error(index1, index2)
 
-    return new_line
+    last_line(new_line)
 
 def print_line(x, y):
     ''' Print out every line '''
@@ -70,25 +75,59 @@ def print_error(x, y):
     print("Error: Failed to parse part '{}:{}'".format(x, y))
 
 def last_line(new_line):
-    emt_str = ""
-    for index in new_line:
-        print(new_line)
-        index1, index2 = index.split(":")
-        emt_str += index2 + ":"
-        emt_something = emt_str.split(":")
-    print(emt_something)
-    return emt_something
+    
+    global SF
+    global SB
+    global SL
+    global SR
+    global P
 
-def print_last_line(new_line):
+    for index in new_line:
+        index1, index2 = index.split(":")
+        
+        if index1 == "SF":
+            index2 = float(index2)
+            if index2 == -1:
+                SF = "CLEAR ROAD"
+            else:
+                SF = str("{}m".format(index2))
+
+        if index1 == "SB":
+            index2 = float(index2)
+            if index2 == -1:
+                SB = "CLEAR ROAD"
+            else:
+                SB = str("{}m".format(index2))
+
+        if index1 == "SL":
+            index2 = float(index2)
+            if index2 == -1:
+                SL = "CLEAR ROAD"
+            else:
+                SL = str("{}m".format(index2))
+
+        if index1 == "SR":
+            index2 = float(index2)
+            if index2 == -1:
+                SR = "CLEAR ROAD"
+            else:
+                SR = str("{}m".format(index2))
+
+        if index1 == "P":
+            P = index2
+            
+
+    print_last_line() # Call the print function
+
+def print_last_line():
     ''' Print last line '''
- 
     print()
     print("------ CURRENT STATE ------")
-    print('{:<20}{:>4}.0m'.format("FRONT:", new_line[0])) # þetta þarf líka að prentast út sem FLOAT
-    print('{:<20}{:>4}.0m'.format("BACK:", new_line[1])) # þetta þarf líka að prentast út sem FLOAT
-    print('{:<20}{:>4}.0m'.format("LEFT:", new_line[3])) # þetta þarf líka að prentast út sem FLOAT
-    print('{:<20}{:>6}m'.format("RIGHT:", new_line[2])) # þetta þarf líka að prentast út sem FLOAT
-    print('{:<20}{:>7}'.format("PRECIPITATION:", new_line[4]))
+    print('FRONT:{:>21}'.format(SF))
+    print('BACK:{:>22}'.format(SB))
+    print('LEFT:{:>22}'.format(SL))
+    print('RIGHT:{:>21}'.format(SR))
+    print('PRECIPITATION:{:>13}'.format(P))
 
 # Main program starts here
 
@@ -97,7 +136,8 @@ file_object = open_file(filename)
 if file_object != False:
 
     file_line = read_lint(file_object)
-    one_line = split_line(file_line)
-    some_str = last_line(one_line)
-    print_last_line(some_str)
-    file_object.close()
+    split_line(file_line)
+    
+
+file_object.close()
+# Þarf að laga að skynjari sem skilar ekki tölu (SF:asd) stoppi ekki keyrsluna. 
